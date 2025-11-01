@@ -1,0 +1,85 @@
+<app-icon></app-icon>
+
+<header class="sticky top-0 z-50 w-full bg-header backdrop-blur-xl border-b shadow-md border-[var(--border-color)] transition-all duration-300">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+
+      <!-- Burger mobile -->
+      <button class="lg:hidden p-3 rounded-xl text-dynamic hover:text-[var(--vivid-pink)] hover:bg-[var(--card-bg)]/40 transition-all duration-300"
+        aria-label="Ouvrir le menu" (click)="toggleMobileMenu()">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+
+      <!-- Nav gauche desktop -->
+      <nav class="hidden lg:flex lg:gap-2">
+        <div *ngFor="let menu of mobileMenus.slice(0,3)" class="relative flex items-center group">
+          <a [routerLink]="menu.link || menu.items[0]?.link"
+            class="flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-dynamic hover:text-[var(--bright-blue)] hover:bg-[var(--card-bg)]/60 transition-all duration-300">
+            <ng-container *ngIf="menu.initiales; else iconTemplate">
+              <div class="w-8 h-8 rounded-full bg-[var(--vivid-pink)] text-white font-bold text-sm flex items-center justify-center">
+                {{ menu.initiales }}
+              </div>
+            </ng-container>
+            <ng-template #iconTemplate>
+              <i [class]="menu.icon"></i>
+            </ng-template>
+            <span>{{ menu.title }}</span>
+          </a>
+        </div>
+      </nav>
+
+        <!-- Logo icône clair/sombre -->
+        <a routerLink="/accueil" class="relative flex items-center justify-center w-14 h-14 rounded-full">
+          <!-- Icône visible en mode sombre -->
+          <i *ngIf="isDarkMode" class="fas fa-moon text-3xl text-white transition-all duration-500"></i>
+          
+          <!-- Icône visible en mode clair -->
+          <i *ngIf="!isDarkMode" class="fas fa-sun text-3xl text-yellow-400 transition-all duration-500"></i>
+        </a>
+
+
+
+
+      <!-- Nav droite desktop -->
+      <nav class="hidden lg:flex lg:gap-2">
+        <div *ngFor="let menu of mobileMenus.slice(3,6)" class="relative flex items-center group">
+          <a [routerLink]="menu.link || menu.items[0]?.link"
+            class="flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-dynamic hover:text-[var(--bright-blue)] hover:bg-[var(--card-bg)]/60 transition-all duration-300 relative">
+            <i [class]="menu.icon"></i>
+            <span>{{ menu.title }}</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Profil mobile -->
+      <a routerLink="/dashboard" class="lg:hidden ml-auto relative group" title="Utilisateur {{ connectedUser?.initiales }}">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--vivid-pink)] to-[var(--bright-blue)] text-white font-bold text-lg flex items-center justify-center shadow-md transition-all duration-300 hover:scale-110">
+          {{ connectedUser?.initiales }}
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Menu mobile plein écran -->
+  <div #mobileMenu *ngIf="mobileMenuOpen"
+    class="fixed inset-0 z-[1200] bg-header backdrop-blur-md flex flex-col animate-fade-in-up overflow-auto">
+    <div class="flex items-center justify-between p-6 border-b border-[var(--border-color)]">
+      <h2 class="text-2xl font-bold text-dynamic tracking-wide">Menu</h2>
+      <button (click)="closeMobileMenu()" class="p-3 rounded-xl text-dynamic/70 hover:text-[var(--vivid-pink)] transition-all">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 flex flex-col px-4 sm:px-6 py-6 gap-3">
+      <a *ngFor="let menu of mobileMenus" [routerLink]="menu.link || menu.items[0]?.link"
+         class="group flex items-center gap-4 text-lg sm:text-xl font-medium text-dynamic hover:text-[var(--bright-blue)] rounded-2xl px-4 py-3 hover:bg-[var(--card-bg)]/50 transition-all shadow-sm"
+         (click)="closeMobileMenu()">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white text-lg shadow-md group-hover:scale-105 transform transition bg-gradient-to-br from-[var(--bright-blue)] to-[var(--vivid-pink)]">
+          <i [class]="menu.icon"></i>
+        </div>
+        <span class="flex-1">{{ menu.title }}</span>
+      </a>
+    </div>
+  </div>
+</header>

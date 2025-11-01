@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* 🌞 Mode clair par défaut */
+:root {
+  --Blanc:#FFF;
+  --Black:#000;
+
+  --Bleu-Clair:#0000D3;
+  --Bleu:#02028E;
+  --Bleu-Foncé:#01015D;
+
+  --Vert-Clair:#00D323;
+  --Vert:#019119;
+  --Vert-Foncé:#01580F;
+}

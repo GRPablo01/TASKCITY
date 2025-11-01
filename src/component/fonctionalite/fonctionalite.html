@@ -1,0 +1,17 @@
+<div class="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-all duration-300 relative">
+
+    <!-- Toggle Clair/Sombre uniquement si showThemeToggle = true -->
+    <div *ngIf="showThemeToggle" class="fixed top-21 right-6 z-50">
+      <button (click)="toggleTheme()"
+              class="flex items-center justify-center w-14 h-14 rounded-full bg-[var(--bright-blue)]/80 dark:bg-[var(--electric-violet)]/80
+                     shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-md
+                     border border-[var(--border-color)] hover:brightness-105">
+        <i class="fas text-2xl transition-colors duration-300"
+           [ngClass]="{
+             'fa-sun text-white': isDarkMode,
+             'fa-moon text-black': !isDarkMode
+           }"></i>
+      </button>
+    </div>
+</div>
+  
